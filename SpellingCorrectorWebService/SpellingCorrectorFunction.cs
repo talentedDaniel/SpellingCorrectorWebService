@@ -257,6 +257,7 @@ namespace SpellingCorrectorWebService
                                     distance = suggestion.Length - candidate.Length;
                                 else
                                 {
+                                    // Need no operation for common pre/sufix.
                                     int ii = 0;
                                     int jj = 0;
                                     while ((ii < suggestion.Length) && (ii < input.Length) && (suggestion[ii] == input[ii]))
@@ -272,7 +273,7 @@ namespace SpellingCorrectorWebService
                                         distance = DamerauLevenshteinDistance(suggestion, input);
                                 }
                             }
-
+                            // Remove the suggestion if the edit distance is longer than Max.
                             if ((VerBose < 2) && (suggestions.Count > 0) && (suggestions[0].distance > distance))
                                 suggestions.Clear();
                             if ((VerBose < 2) && (suggestions.Count > 0) && (distance > suggestions[0].distance))
@@ -293,6 +294,7 @@ namespace SpellingCorrectorWebService
                     }
                 }
 
+                // Exit the recursion when exceeding MaxEditDistance.
                 if (input.Length - candidate.Length < MaxEditDistance)
                 {
                     if ((VerBose < 2) && (suggestions.Count > 0) && (input.Length - candidate.Length >= suggestions[0].distance))
@@ -307,6 +309,7 @@ namespace SpellingCorrectorWebService
             }
 
             sort:
+            // Sort by asending edit distance, descending frequency.
             if (VerBose < 2)
                 suggestions.Sort((x, y) => -x.count.CompareTo(y.count));
             else
