@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="scripts/angular.js"></script>
+    <script src="scripts/script.js"></script>
+    <link href="Style.css" rel="stylesheet" />
+	<meta charset="utf-8" />
+</head>
+<body ng-app="spellCorrectorModule">
+    <div ng-controller="spellCorrectorController">
+        <label>Input: <input type="text" ng-model="getJSONParam1" ng-init="getJSONParam1 = 'param1 value'" /></label><br />
+        <button ng-click="getCallJSON()">Submit</button>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Suggestion:</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="suggestion in resp">
+                    <td>{{suggestion.term}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
